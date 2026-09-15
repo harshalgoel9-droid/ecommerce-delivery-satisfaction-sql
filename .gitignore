@@ -1,0 +1,9 @@
+# The dataset is downloaded from Kaggle, not committed (size and licence).
+data/*.csv
+data/*.zip
+
+# OS and editor clutter
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
