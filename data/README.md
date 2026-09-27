@@ -2,11 +2,14 @@
 
 The CSV files are not committed to this repository. Download them from Kaggle:
 
-**Brazilian E-Commerce Public Dataset by Olist** — search that name on
+**Brazilian E-Commerce Public Dataset by Olist**. Search for that name on
 [kaggle.com](https://www.kaggle.com), sign in, and click **Download**
 (a zip of about 45 MB).
 
-Unzip it and copy these eight files into this folder:
+Unzip it and keep these eight files in this folder. Then copy them into the
+MySQL upload folder, where [`sql/02_load.sql`](../sql/02_load.sql) reads them
+from (see the comments at the top of that file). The row counts below are what
+its check at the end should show.
 
 | File | Rows |
 |---|---:|
@@ -21,9 +24,7 @@ Unzip it and copy these eight files into this folder:
 
 The ninth file, `olist_geolocation_dataset.csv`, is not used.
 
-If you have the same data from the Scaler *Target Brazil* case study under
-different file names, that works too: `scripts/run_mssql.ps1` matches files by
-the words in their names (orders, items, payments, reviews, customers,
-products, sellers, translation).
+The scripts were tested on the Kaggle files. Copies from elsewhere, such as the
+Scaler *Target Brazil* case study, may use different file names or formats.
 
 Please check the dataset's licence on its Kaggle page before redistributing it.

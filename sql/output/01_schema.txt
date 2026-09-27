@@ -1,2 +1,0 @@
-﻿Changed database context to 'OlistAnalytics'.
-Schema created.
