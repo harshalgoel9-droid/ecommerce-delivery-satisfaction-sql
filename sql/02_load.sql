@@ -4,29 +4,10 @@
 -- =====================================================================
 -- Run this after 01_schema.sql.
 --
--- The MySQL server reads the files itself, and only from its upload
--- folder (the secure_file_priv setting). On a standard Windows install
--- that folder is:
---     C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/
---
--- Before running, copy the eight CSV files from data/ into that folder.
--- To check where it is on your machine:
+-- MySQL only reads files from its upload folder, so copy the eight CSV
+-- files there first. To find the folder:
 --     SHOW VARIABLES LIKE 'secure_file_priv';
--- and change the paths below if it is somewhere else.
---
--- The options, and why they are there:
---   CHARACTER SET utf8mb4        Portuguese text (ã, é, ç) loads correctly
---   OPTIONALLY ENCLOSED BY '"'   commas and line breaks inside quoted
---                                review comments stay in one field
---   ESCAPED BY ''                a backslash is just a character: some
---                                review comments contain one
---   LINES TERMINATED BY          the Kaggle files are not consistent. Six
---                                end lines with '\n', while reviews and
---                                category_translation use Windows '\r\n'
---   IGNORE 1 ROWS                skips the header row
---
--- Empty fields load as empty strings (''), not NULL. 03_cleaning.sql
--- turns them into NULL.
+-- On Windows it is usually C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/
 -- =====================================================================
 
 USE olist_analytics;
@@ -34,56 +15,51 @@ USE olist_analytics;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_customers_dataset.csv'
 INTO TABLE stg_customers
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_sellers_dataset.csv'
 INTO TABLE stg_sellers
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
+-- This file has Windows line endings (\r\n).
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/product_category_name_translation.csv'
 INTO TABLE stg_category_translation
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_products_dataset.csv'
 INTO TABLE stg_products
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_orders_dataset.csv'
 INTO TABLE stg_orders
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_order_items_dataset.csv'
 INTO TABLE stg_order_items
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_order_payments_dataset.csv'
 INTO TABLE stg_payments
-CHARACTER SET utf8mb4
-FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
+FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 
+-- Windows line endings too. Some review comments contain a backslash,
+-- which MySQL would read as an escape character, so escaping is off.
 LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/olist_order_reviews_dataset.csv'
 INTO TABLE stg_reviews
-CHARACTER SET utf8mb4
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY ''
 LINES TERMINATED BY '\r\n'
 IGNORE 1 ROWS;
